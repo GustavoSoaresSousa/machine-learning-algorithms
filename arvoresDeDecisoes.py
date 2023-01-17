@@ -2,6 +2,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn import tree
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.ensemble import RandomForestClassifier
 from yellowbrick.classifier import ConfusionMatrix
 import pickle
 
@@ -32,7 +33,7 @@ arvore_credit.fit(x_credit_treinamento, y_credit_treinamento)
 
 previsoes_credit = arvore_credit.predict(x_credit_teste)
 
-accuracy = accuracy_score(y_credit_teste, previsoes_credit) # resultado melhor que o algoritimo naive bayes
+accuracy = accuracy_score(y_credit_teste, previsoes_credit) # resultado melhor que o algoritimo naive bayes 98.20%
 cm = ConfusionMatrix(arvore_credit)
 cm.fit(x_credit_treinamento, y_credit_treinamento)
 cm.score(x_credit_teste, y_credit_teste)
@@ -48,5 +49,25 @@ arvore_census = DecisionTreeClassifier(criterion='entropy', random_state=0)
 arvore_census.fit(x_census_treinamento, y_census_treinamento)
 previsoes_census = arvore_census.predict(x_census_teste)
 
-accuracy_census = accuracy_score(y_census_teste, previsoes_census) # mais preciso que o naive bayes
-print(accuracy_census)
+accuracy_census = accuracy_score(y_census_teste, previsoes_census) # mais preciso que o naive bayes 81.04%
+#print(accuracy_census)
+
+
+### RANDOM FOREST - BASE DE CREDITO
+
+random_forest_credit = RandomForestClassifier(n_estimators=40, criterion='entropy', random_state = 0)
+random_forest_credit.fit(x_credit_treinamento, y_credit_treinamento)
+previsoes_random_forest_credit = random_forest_credit.predict(x_credit_teste)
+
+accuracy_random_forest_credit = accuracy_score(y_credit_teste, previsoes_random_forest_credit) # 96.80% dependendo do numeros de arvores, melhora a precisao, fazer testes, nem sempre mais arvores vai indicar mais precisão
+
+#print(accuracy_random_forest_credit)
+
+### RANDOM FOREST - CENSUS
+
+random_forest_census = RandomForestClassifier(n_estimators=100, criterion='entropy', random_state = 0)
+random_forest_census.fit(x_census_treinamento, y_census_treinamento)
+previsoes_random_forest_census = random_forest_census.predict(x_census_teste)
+
+accuracy_random_forest_census = accuracy_score(y_census_teste, previsoes_random_forest_census) #85.07% com 100 arvores
+print(accuracy_random_forest_census)

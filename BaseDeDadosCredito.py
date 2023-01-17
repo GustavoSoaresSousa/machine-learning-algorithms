@@ -78,4 +78,3 @@ X_credit[:, 0].max();
 X_credit[:, 1].max();  
 X_credit[:, 2].max(); 
 
-X_credit;
