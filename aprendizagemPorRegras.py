@@ -1,5 +1,3 @@
-from sklearn.tree import DecisionTreeClassifier
-from sklearn import tree
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, classification_report
 import Orange
